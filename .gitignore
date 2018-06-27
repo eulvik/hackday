@@ -1,1 +1,11 @@
 node_modules
+/build/
+*.suo
+*.user
+_ReSharper.*/
+*.sdf
+.vscode
+bin/
+obj/
+Debug/
+Release/
