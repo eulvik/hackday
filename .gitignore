@@ -4,7 +4,6 @@ node_modules
 *.user
 _ReSharper.*/
 *.sdf
-.vscode
 bin/
 obj/
 Debug/
