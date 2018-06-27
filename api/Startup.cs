@@ -40,7 +40,7 @@ namespace api
             {
                 app.UseHsts();
             }
-
+            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -15,7 +15,7 @@ namespace api.Controllers
 
         public InputOutputController(IMemoryCache memCache)
         {
-            _memCache = memCache;
+            _memCache = memCache; 
         }
         // GET api/values
         [HttpPost]
@@ -29,7 +29,7 @@ namespace api.Controllers
         [HttpGet]
         public ActionResult<SensorData> Get()
         {
-            return _memCache.Get("sensorData") as SensorData;
+            return _memCache.Get("sensorData") as SensorData ?? new SensorData();
         }
     }
 }
