@@ -9,3 +9,9 @@ obj/
 Debug/
 Release/
 .idea/
+api/api.sln
+api/.vs/config/applicationhost.config
+api/.vs/api/v15/Server/sqlite3/storage.ide-wal
+api/.vs/api/v15/Server/sqlite3/storage.ide-shm
+api/.vs/api/v15/Server/sqlite3/storage.ide
+api/.vs/api/v15/Server/sqlite3/db.lock

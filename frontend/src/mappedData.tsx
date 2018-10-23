@@ -4,7 +4,7 @@ import * as React from "react"
 import { IDirectionHistory } from "./SensorData";
 
 const canvas = "canvas";
-const step = 20;
+const step = 40;
 
 interface IMappedDataProps {
     historyData: IDirectionHistory
@@ -57,11 +57,11 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
         const canvas1: any = this.refs.canvas;
         const ctx = canvas1.getContext('2d');
         ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, 400, 400);
+        ctx.fillRect(0, 0, 500, 500);
         ctx.beginPath();
         ctx.strokeStyle = "#000";
-        let x1 = 200;
-        let y1 = 200;
+        let x1 = 50;
+        let y1 = 450;
         let x2 = 200;
         let y2 = 200;
         let direction = "N";
