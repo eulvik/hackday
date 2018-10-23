@@ -12,6 +12,11 @@ interface ISensorData {
     acc_y: number;
     acc_z: number;
     status: string;
+    heading: number;
+}
+
+export interface IDirectionHistory {
+    values: number[];
 }
 
 const style = {
@@ -25,6 +30,7 @@ export default class SensorData extends React.Component {
 
     private trend: ISensorData[] = [];
     private latestSnapshot: ISensorData;
+    private history: IDirectionHistory;
     private chart: Highcharts.ChartObject;
 
     public componentDidMount() {
@@ -83,7 +89,7 @@ export default class SensorData extends React.Component {
                     <div id="container" />
                 </div>
                 <div style={style.flex}>
-                    <MappedData />
+                    <MappedData historyData={this.history} />
                 </div>
             </div>
             <div style={{ textAlign: "left", paddingLeft: "250px" }}>
@@ -113,7 +119,7 @@ export default class SensorData extends React.Component {
     }
 
     private fetchData() {
-        fetch("http://192.168.1.17:5001/api/InputOutput/", {
+        fetch("https://localhost:44376/api/InputOutput/", {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
@@ -126,6 +132,17 @@ export default class SensorData extends React.Component {
             }
             this.latestSnapshot = res;
         });
+
+        fetch("https://localhost:44376/api/History/", {
+            headers: {
+                'Accept': 'application/json',
+                'content-type': 'application/json'
+            },
+        }).then(response => response.json()).then(json => {
+            const res = json as IDirectionHistory;
+            this.history = res;
+        });
+
         this.chart.update({
             series: [{
                 data: _.map(this.trend, sd => sd.distance),

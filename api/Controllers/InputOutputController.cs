@@ -17,11 +17,17 @@ namespace api.Controllers
         {
             _memCache = memCache; 
         }
+
         // GET api/values
         [HttpPost]
         public ActionResult<SensorData> Post([FromBody]SensorData sensorData)
         {
             _memCache.Set("sensorData", sensorData);
+            var history = _memCache.Get("history") as DirectionHistory ?? new DirectionHistory();
+            var vals = history.Values ?? new List<double>();
+            vals.Add(sensorData.heading);
+            history.Values = vals;
+            _memCache.Set("history", history);
             return sensorData;
         }
 

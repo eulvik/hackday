@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class SensorData
 {
     public double distance { get; set; }
@@ -9,4 +11,10 @@ public class SensorData
     public double acc_y { get; set; }
     public double acc_z { get; set; }
     public string status { get; set; }
+    public double heading { get; set; }
 }
+
+public class DirectionHistory
+{
+    public List<double> Values { get; set; }
+} 
