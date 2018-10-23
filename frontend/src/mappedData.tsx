@@ -4,13 +4,15 @@ import * as React from "react"
 import { IDirectionHistory } from "./SensorData";
 
 const canvas = "canvas";
-const step = 40;
+
+const minStep = 5;
 
 interface IMappedDataProps {
     historyData: IDirectionHistory
 }
 export class MappedData extends React.Component<IMappedDataProps, {}> {
 
+    private step: number = 50;
     private img: any = new Image;
     private check: any = new Image;
     private startx: number = 50;
@@ -77,21 +79,23 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
                 ctx.moveTo(x1, y1);
                 if (direction === "N") {
                     x2 = x1;
-                    y2 = y1 - step;
+                    y2 = y1 - this.step;
                 } else if (direction === "S") {
                     x2 = x1;
-                    y2 = y1 + step;
+                    y2 = y1 + this.step;
                 } else if (direction === "E") {
-                    x2 = x1 + step;
+                    x2 = x1 + this.step;
                     y2 = y1;
                 } else if (direction === "W") {
-                    x2 = x1 - step;
+                    x2 = x1 - this.step;
                     y2 = y1;
                 }
                 ctx.lineTo(x2, y2);
                 x1 = x2;
                 y1 = y2;
             }
+            if ((x2 < 0 || x2 > 500) || (y2 < 0 || y2 > 500)) { this.step = Math.max(this.step - 5, minStep); }
+
         });
         // ctx.closePath();
         ctx.stroke();
@@ -99,11 +103,11 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
         const imagePoint = this.getImagePoint(direction, x1, y1);
         ctx.drawImage(this.img, imagePoint.x, imagePoint.y);
 
-        if(x2 === this.startx && y2 === this.starty) {
+        if (x2 === this.startx && y2 === this.starty) {
             this.success = true;
         }
 
-        if(this.success) {
+        if (this.success) {
             ctx.drawImage(this.check, 250, 250);
         }
     }
