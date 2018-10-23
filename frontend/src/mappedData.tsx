@@ -12,6 +12,10 @@ interface IMappedDataProps {
 export class MappedData extends React.Component<IMappedDataProps, {}> {
 
     private img: any = new Image;
+    private check: any = new Image;
+    private startx: number = 50;
+    private starty: number = 450;
+    private success: boolean = false;
 
     public calculateDirection(t: number, direction: string) {
         switch (direction) {
@@ -28,6 +32,7 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
     }
 
     public componentDidMount() {
+        this.check.src = "checkered.png";
         if (this.props.historyData && this.props.historyData.values) {
             this.renderCanvas(this.props);
         }
@@ -60,8 +65,8 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
         ctx.fillRect(0, 0, 500, 500);
         ctx.beginPath();
         ctx.strokeStyle = "#000";
-        let x1 = 50;
-        let y1 = 450;
+        let x1 = this.startx;
+        let y1 = this.starty;
         let x2 = 200;
         let y2 = 200;
         let direction = "N";
@@ -93,6 +98,14 @@ export class MappedData extends React.Component<IMappedDataProps, {}> {
         this.img.src = "r" + direction + ".png";
         const imagePoint = this.getImagePoint(direction, x1, y1);
         ctx.drawImage(this.img, imagePoint.x, imagePoint.y);
+
+        if(x2 === this.startx && y2 === this.starty) {
+            this.success = true;
+        }
+
+        if(this.success) {
+            ctx.drawImage(this.check, 250, 250);
+        }
     }
 
 

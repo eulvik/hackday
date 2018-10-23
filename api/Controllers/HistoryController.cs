@@ -24,7 +24,7 @@ namespace api.Controllers
         {
             var state = _memCache.Get("history") as DirectionHistory ?? new DirectionHistory() { Values = new List<double>() };
 
-            if (true)
+            if (false)
             {
                 if (indexer < dummy.Count - 1)
                 {

@@ -119,7 +119,7 @@ export default class SensorData extends React.Component {
     }
 
     private fetchData() {
-        fetch("https://localhost:44376/api/InputOutput/", {
+        fetch("http://localhost:5001/api/InputOutput/", {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
@@ -133,7 +133,7 @@ export default class SensorData extends React.Component {
             this.latestSnapshot = res;
         });
 
-        fetch("https://localhost:44376/api/History/", {
+        fetch("http://localhost:5001/api/History/", {
             headers: {
                 'Accept': 'application/json',
                 'content-type': 'application/json'
