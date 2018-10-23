@@ -1,6 +1,7 @@
 import * as Highcharts from "highcharts";
 import * as _ from "lodash";
 import * as React from "react";
+import { MappedData } from "./mappedData";
 
 interface ISensorData {
     distance: number;
@@ -11,6 +12,13 @@ interface ISensorData {
     acc_y: number;
     acc_z: number;
     status: string;
+}
+
+const style = {
+    flex: {
+        display: "inline-block",
+        width: "49%" 
+    }
 }
 
 export default class SensorData extends React.Component {
@@ -70,28 +78,35 @@ export default class SensorData extends React.Component {
     public render() {
         return <div>
             <h1>Team 0</h1>
-            <div id="container" />
-            <div style={{textAlign: "left", paddingLeft: "250px"}}>
-                <label style={{marginRight: "10px", fontSize: "40pt", fontWeight: "bold", minWidth: "250px"}}>Status</label>
-                <label style={{marginRight: "10px", fontSize: "40pt"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.status : ""}</label>
+            <div style={{ width: "100%", margin: "0 auto" }}>
+                <div style={style.flex}>
+                    <div id="container" />
+                </div>
+                <div style={style.flex}>
+                    <MappedData />
+                </div>
+            </div>
+            <div style={{ textAlign: "left", paddingLeft: "250px" }}>
+                <label style={{ marginRight: "10px", fontSize: "40pt", fontWeight: "bold", minWidth: "250px" }}>Status</label>
+                <label style={{ marginRight: "10px", fontSize: "40pt" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.status : ""}</label>
                 <br />
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"  }}>Gyro X</label>
-                <label style={{marginRight: "10px"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_x : ""}</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Gyro X</label>
+                <label style={{ marginRight: "10px" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_x : ""}</label>
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"}}>Gyro Y</label>
-                <label style={{marginRight: "10px"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_y : ""}</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Gyro Y</label>
+                <label style={{ marginRight: "10px" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_y : ""}</label>
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"}}>Gyro Z</label>
-                <label style={{marginRight: "10px"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_z : ""}</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Gyro Z</label>
+                <label style={{ marginRight: "10px" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.gyr_z : ""}</label>
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"}}>Acc X</label>
-                <label style={{marginRight: "10px"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.acc_x : ""}</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Acc X</label>
+                <label style={{ marginRight: "10px" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.acc_x : ""}</label>
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"}}>Acc Y</label>
-                <label style={{marginRight: "10px"}}>{this.latestSnapshot !== undefined ? this.latestSnapshot.acc_y : ""}</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Acc Y</label>
+                <label style={{ marginRight: "10px" }}>{this.latestSnapshot !== undefined ? this.latestSnapshot.acc_y : ""}</label>
                 <br />
-                <label style={{marginRight: "10px", fontWeight: "bold", minWidth: "250px"}}>Acc Z</label>
+                <label style={{ marginRight: "10px", fontWeight: "bold", minWidth: "250px" }}>Acc Z</label>
                 <label>{this.latestSnapshot !== undefined ? this.latestSnapshot.acc_z : ""}</label>
             </div>
         </div>
@@ -106,7 +121,7 @@ export default class SensorData extends React.Component {
         }).then(response => response.json()).then(json => {
             const res = json as ISensorData;
             this.trend.push(res);
-            if(this.trend.length > 100) {
+            if (this.trend.length > 100) {
                 this.trend = _.takeRight(this.trend, 100);
             }
             this.latestSnapshot = res;
